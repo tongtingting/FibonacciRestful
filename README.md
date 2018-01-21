@@ -13,7 +13,7 @@ It is important to use exponentiation by squaring with this algorithm, because o
 
 So, that gives me a idea that the calculation could be sperated into smaller jobs to finish together.
 ##### Related codes:
- * [FibonacciCoreCalucaltion](https://github.com/iamtangram/FibonacciRest/blob/master/src/main/java/com/emc/test/fibonacci/FibonacciCoreCalucaltion.java)
+ * [FibonacciCoreCalucaltion](https://github.com/jasonwang82/FibonacciRestful/blob/master/src/main/java/com/emc/test/fibonacci/FibonacciCoreCalucaltion.java)
 
 ### Infrastructure Design
 ```
@@ -59,9 +59,9 @@ So, that gives me a idea that the calculation could be sperated into smaller job
 ##### Notice
 * Load balance is not designed yet for this test. I would continously upgrade and improve project codes on that.
 * Each request comes from the load balance mechnisum and go through ***Spring container***. 
-* The restful services will check the number first and then once the validation is passed, then it will trigger a JVM (or docker). See [code](https://github.com/iamtangram/FibonacciRest/blob/master/src/main/java/com/emc/test/rest/FibonacciCalculationResource.java).
-* According to the max threadhold defined in the [properties](https://github.com/iamtangram/FibonacciRest/blob/master/src/main/resources/application.properties), JVM will start the counts of calculation jobs. The result of each jobs will be persisted to temp files. After all jobs are done, spring container will collect these in order and then output as ***compressed*** stream. The temp files will be ***deleted*** async.  See [Job Thread](https://github.com/iamtangram/FibonacciRest/blob/master/src/main/java/com/emc/test/fibonacci/FibonacciPartThread.java) and [Process](https://github.com/iamtangram/FibonacciRest/blob/master/src/main/java/com/emc/test/process/ProcessRunner.java). JVM will have a max maxheapsize (512m) for each run. So it prevent more JVM causing spring main process down.
-* Properties is defined in [HERE](https://github.com/iamtangram/FibonacciRest/blob/master/src/main/resources/application.properties). You can easily adjust JVM max heap size, task timeout (currently define 10 min), and report heart-beating.
+* The restful services will check the number first and then once the validation is passed, then it will trigger a JVM (or docker). See [code](https://github.com/jasonwang82/FibonacciRestful/blob/master/src/main/java/com/emc/test/rest/FibonacciCalculationResource.java).
+* According to the max threadhold defined in the [properties](https://github.com/jasonwang82/FibonacciRestful/blob/master/src/main/resources/application.properties), JVM will start the counts of calculation jobs. The result of each jobs will be persisted to temp files. After all jobs are done, spring container will collect these in order and then output as ***compressed*** stream. The temp files will be ***deleted*** async.  See [Job Thread](https://github.com/jasonwang82/FibonacciRestful/blob/master/src/main/java/com/emc/test/fibonacci/FibonacciPartThread.java) and [Process](https://github.com/jasonwang82/FibonacciRestful/blob/master/src/main/java/com/emc/test/process/ProcessRunner.java). JVM will have a max maxheapsize (512m) for each run. So it prevent more JVM causing spring main process down.
+* Properties is defined in [HERE](https://github.com/jasonwang82/FibonacciRestful/blob/master/src/main/resources/application.properties). You can easily adjust JVM max heap size, task timeout (currently define 10 min), and report heart-beating.
 ```
 # JVM parameters
 jvm.parameters.maxheapsize=-Xmx512m
