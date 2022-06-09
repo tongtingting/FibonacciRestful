@@ -20,12 +20,16 @@ jobs:
       - checkout
       # Use mvn clean and package as the standard maven build phase
       - run:
-          name: Build
-          command: mvn -B -DskipTests clean package
+          name: Install
+          command: mvn install -Dmaven.test.skip=true
       # Then run your tests!
       - run:
+          name: Build
+          command: mvn spring-boot:run
+      
+      - run:
           name: Test
-          command: mvn test
+          command: curl 127.0.0.1:9000/v1/rest/fibonacci/7
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
