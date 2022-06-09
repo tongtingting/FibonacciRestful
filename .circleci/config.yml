@@ -18,7 +18,7 @@ jobs:
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Install
-          command: mvn install -Dmaven.test.skip=true
+          command: mvn install -D maven.test.skip=true
       # Then run your tests!
       - run:
           name: Build
